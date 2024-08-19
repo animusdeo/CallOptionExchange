@@ -14,7 +14,7 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
 ### Roles
 
 1. **Central Securities Depository (CSD)**
-   - **Role**: The CSD acts as the central hub that operates the matching and settlement engine for bond transactions. It maintains a list of client addresses mapped to specific roles, such as IPA, Issuer, and Dealers. The CSD’s primary function is to create and manage various financial instructions on behalf of its clients, such as SecurityIssuanceInstructions, Delivery Versus Payment (DVP) instructions, Receive Versus Payment (RVP) instructions, and Redemption instructions.
+   - **Role**: The CSD acts as the central hub that operates the matching and settlement engine for bond transactions. It maintains a list of client addresses mapped to specific roles, such as IPA, Issuer, and Dealer. The CSD’s primary function is to create and manage various financial instructions on behalf of its clients, such as SecurityIssuanceInstructions, Delivery Versus Payment (DVP) instructions, Receive Versus Payment (RVP) instructions, and Redemption instructions.
    - **Allowed Actions**:
      - Create instructions on behalf of clients.
      - Maintain and manage the roles and permissions of its clients.
