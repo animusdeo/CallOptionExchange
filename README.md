@@ -28,7 +28,7 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
    - **Allowed Actions**:
      - Request and initiate SecurityIssuanceInstructions from the CSD.
      - Deliver investor funds to the Issuer in exchange for bonds.
-     - Receive the Issuance Outstanding Amount (IOA) from the Issuer upon the bond's settlement or maturity.
+     - Receive the Issuance Outstanding Amount (IOA) from the Issuer upon the bond's maturity.
      - Authorize SecurityIssuanceInstructions initiated by Dealers.
    - **Restrictions**:
      - Cannot create instructions independently of the CSD; must act through the CSD for all instruction-related actions.
