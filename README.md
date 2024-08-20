@@ -7,14 +7,13 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
 - Definition of an Ethereum-based bond, EthereumSecurity
 - Two types of instructions: SecurityIssuance, and SecurityRedemption
 - Roles involved in the issuance and redemption (CSD, IPA, Issuer) of a security
-- A settlement engine.
 
 ## Requirements
 
 ### Roles
 
 1. **Central Securities Depository (CSD)**
-   - **Role**: The CSD acts as the central hub that operates the matching and settlement engine for bond transactions. It maintains a list of client addresses mapped to specific roles, such as IPA, Issuer, and Dealer. The CSD’s primary function is to create and manage various financial instructions on behalf of its clients, such as SecurityIssuanceInstructions and Redemption instructions.
+   - **Role**: The CSD acts as the central hub that operates the matching and settlement engine for EthereumSecurity transactions. It maintains a list of client addresses mapped to specific roles, such as IPA, Issuer, and Dealer. The CSD’s primary function is to create and manage various financial instructions on behalf of its clients, such as SecurityIssuanceInstruction and SecurityRedemptionInstruction instructions.
    - **Allowed Actions**:
      - Create instructions on behalf of clients.
      - Maintain and manage the roles and permissions of its clients.
@@ -24,32 +23,31 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
      - It does not act as a custodian for its clients' assets, meaning it does not hold or manage the securities or funds of its clients.
 
 2. **Issuing Paying Agent (IPA)**
-   - **Role**: The IPA serves as the intermediary between the Issuer and the investors. Its primary responsibility is to handle the financial transactions associated with bond issuance and redemption on behalf of its investors. The IPA requests SecurityIssuanceInstructions from the CSD and facilitates the flow of capital from investors to the Issuer and the repayment from the Issuer to the investors.
+   - **Role**: The IPA serves as the intermediary between the Issuer and the investors. Its primary responsibility is to handle the financial transactions associated with EthereumSecurity issuance and redemption on behalf of its investors. The IPA requests SecurityIssuanceInstructions from the CSD and facilitates the flow of capital from investors to the Issuer and the repayment from the Issuer to the investors.
    - **Allowed Actions**:
-     - Request and initiate SecurityIssuanceInstructions from the CSD.
-     - Deliver investor funds to the Issuer in exchange for bonds.
+     - Confirm SecurityIssuanceInstruction and SecurityRedemptionInstruction instructions created by the Issuer.
+     - Deliver investor funds to the Issuer in exchange for EthereumSecurity.
      - Receive the Issuance Outstanding Amount (IOA) from the Issuer upon the bond's maturity.
-     - Authorize SecurityIssuanceInstructions initiated by Dealers.
    - **Restrictions**:
      - Cannot create instructions independently of the CSD; must act through the CSD for all instruction-related actions.
 
 3. **Issuer**
-   - **Role**: The Issuer is the entity seeking to raise capital through the issuance of bonds. The Issuer sells debt securities to the IPA in exchange for capital. The Issuer is responsible for delivering the bond to the IPA, representing the debt, and for repaying the Issuance Outstanding Amount (IOA) on the settlement date. The Issuer typically interacts with the IPA and is obligated to repay the bond's principal at maturity.
+   - **Role**: The Issuer is the entity seeking to raise capital through the issuance of EthereumSecurity. The Issuer sells debt securities to the IPA in exchange for capital. The Issuer is responsible for delivering the bond to the IPA, representing the debt, and for repaying the Issuance Outstanding Amount (IOA) on the settlement date. The Issuer typically interacts with the IPA and is obligated to repay the bond's principal at maturity.
    - **Allowed Actions**:
-     - Issue bonds through SecurityIssuanceInstructions.
-     - Receive funds from the IPA in exchange for the bonds.
+     - Issue and redeem bonds through creating SecurityIssuanceInstruction and SecurityRedemptionInstruction.
+     - Receive funds from the IPA in exchange for the bonds (EthereumSecurity).
      - Pay the IOA to the IPA on the bond's settlement or maturity date.
    - **Restrictions**:
-     - The Issuer must interact with the IPA for all transactions and cannot bypass this intermediary.
+     - All instructions created by the Issuer must be confirmed by the IPA.
 
 4. **Dealers (future work)**
    - **Role**: Dealers act as representatives of the bond's investors, typically holding partial ownership of the bonds. They can engage in the purchase of bonds from the Issuer and may initiate SecurityIssuanceInstructions. However, any issuance initiated by a Dealer requires authorization from the IPA. Dealers are crucial in the distribution and trading of bonds in the market.
    - **Allowed Actions**:
-     - Initiate SecurityIssuanceInstructions with the necessary IPA authorization.
-     - Engage in DVP, RVP, issuance, or redemption transactions, representing the investors’ interests.
+      - Confirm SecurityRedemptionInstruction instructions.
+      - Engage in DvP, RvP, and redemption transactions.
    - **Restrictions**:
-     - Cannot finalize a SecurityIssuanceInstruction without the IPA’s authorization.
-     - For this proof of concept (POC), only one Dealer is allowed to participate in each DVP, RVP, issuance, or redemption instruction.
+      - Cannot create SecurityIssuanceInstruction instructions. Dealers are only allowed to be the recepient of a redemption, and the deliveree or recipient of a DvP/RvP trade.
+      - For this proof of concept (POC), only one Dealer is allowed to participate in each DvP, RvP, or redemption instruction.
     
 ### EthereumSecurity
 
