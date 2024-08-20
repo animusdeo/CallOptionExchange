@@ -67,7 +67,7 @@ Every Instruction has the following members:
 In the future, an instruction should have authorisation stages (ACTIVE, CANCELLED, CREATOR_PROPOSED_CANCELLATION) and should be preceeded by proposals e.g. SecurityIssuanceProposal requests. Additionally, all requests should abide by the 4-eyes principle, meaning a second party trusted by the initiating party should approve the request. Last, an instruction should be able to be cancelled using a cancellation instruction.
 
 1. **SecurityIssuanceInstruction**
-   - A contract between an Issuer and IPA facilitated by the CSD to issue an Ethereum bond.
+   - A contract between an Issuer and IPA facilitated by the CSD to issue an EthereumSecurity.
    - Is of type Instruction
    - Must be created by the Issuer and confirmed by the IPA.
    - After confirmation, the CSD will start the settlement phase. The CSD will spend ETH on behalf of the IPA and the Issuer will receive the total amount. A EthereumSecurity contract is deployed with the IPA's address as owner the represent the debt owed by the Issuer.
