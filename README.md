@@ -50,6 +50,11 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
    - **Restrictions**:
      - Cannot finalize a SecurityIssuanceInstruction without the IPA’s authorization.
      - For this proof of concept (POC), only one Dealer is allowed to participate in each DVP, RVP, issuance, or redemption instruction.
+    
+### EthereumSecurity
+
+An EthereumSecurity is a contract that represents debt owed by the Issuer of the security towards its holder (e.g. the IPA). The Issuer raises capital by borrowing money from investors (represented by the IPA) and pays a fixed interest to the holder. On the maturity date, the Issuer must repay the debt owed in full. 
+
 
 ### Instructions
 
