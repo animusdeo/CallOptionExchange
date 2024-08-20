@@ -5,26 +5,26 @@
 SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settlement engine built on Ethereum. The project is composed of:
 
 - Definition of an Ethereum-based bond
-- Four types of instructions: SecurityIssuance, DvP, RvP, SecurityRedemption
-- Roles involved in the issuance, custodianship, and redemption (CSD, IPA, Issuer, Dealer) of a security
-- A matching engine and settlement engine with a built-in 4-eyes principle.
+- Four types of instructions: SecurityIssuance, and SecurityRedemption
+- Roles involved in the issuance, custodianship, and redemption (CSD, IPA, Issuer) of a security
+- A matching engine and settlement engine with NO built-in 4-eyes principle.
 
 ## Requirements
 
 ### Roles
 
 1. **Central Securities Depository (CSD)**
-   - **Role**: The CSD acts as the central hub that operates the matching and settlement engine for bond transactions. It maintains a list of client addresses mapped to specific roles, such as IPA, Issuer, and Dealer. The CSD’s primary function is to create and manage various financial instructions on behalf of its clients, such as SecurityIssuanceInstructions, Delivery Versus Payment (DVP) instructions, Receive Versus Payment (RVP) instructions, and Redemption instructions.
+   - **Role**: The CSD acts as the central hub that operates the matching and settlement engine for bond transactions. It maintains a list of client addresses mapped to specific roles, such as IPA, Issuer, and Dealer. The CSD’s primary function is to create and manage various financial instructions on behalf of its clients, such as SecurityIssuanceInstructions and Redemption instructions.
    - **Allowed Actions**:
      - Create instructions on behalf of clients.
      - Maintain and manage the roles and permissions of its clients.
      - Match and settle transactions according to the instructions provided by the clients.
    - **Restrictions**:
-     - The CSD itself cannot initiate or participate directly in any financial transactions like security issuances, DVP, RVP, or redemptions.
+     - The CSD itself cannot initiate or participate directly in any financial transactions like security issuances or redemptions.
      - It does not act as a custodian for its clients' assets, meaning it does not hold or manage the securities or funds of its clients.
 
 2. **Issuing Paying Agent (IPA)**
-   - **Role**: The IPA serves as the intermediary between the Issuer and the investors (or Dealers). Its primary responsibility is to handle the financial transactions associated with bond issuance and redemption on behalf of its investors. The IPA requests SecurityIssuanceInstructions from the CSD and facilitates the flow of capital from investors to the Issuer and the repayment from the Issuer to the investors.
+   - **Role**: The IPA serves as the intermediary between the Issuer and the investors. Its primary responsibility is to handle the financial transactions associated with bond issuance and redemption on behalf of its investors. The IPA requests SecurityIssuanceInstructions from the CSD and facilitates the flow of capital from investors to the Issuer and the repayment from the Issuer to the investors.
    - **Allowed Actions**:
      - Request and initiate SecurityIssuanceInstructions from the CSD.
      - Deliver investor funds to the Issuer in exchange for bonds.
@@ -42,7 +42,7 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
    - **Restrictions**:
      - The Issuer must interact with the IPA for all transactions and cannot bypass this intermediary.
 
-4. **Dealers**
+4. **Dealers (future work)**
    - **Role**: Dealers act as representatives of the bond's investors, typically holding partial ownership of the bonds. They can engage in the purchase of bonds from the Issuer and may initiate SecurityIssuanceInstructions. However, any issuance initiated by a Dealer requires authorization from the IPA. Dealers are crucial in the distribution and trading of bonds in the market.
    - **Allowed Actions**:
      - Initiate SecurityIssuanceInstructions with the necessary IPA authorization.
@@ -50,6 +50,28 @@ SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settle
    - **Restrictions**:
      - Cannot finalize a SecurityIssuanceInstruction without the IPA’s authorization.
      - For this proof of concept (POC), only one Dealer is allowed to participate in each DVP, RVP, issuance, or redemption instruction.
+
+### Instructions
+
+Every Instruction has the following members:
+   - instructionId
+   - processingStatus
+      - PENDING_CONFIRMATION
+      - PENDING_MATCHING
+      - MATCHED
+      - PENDING_SETTLEMENT
+      - FAILED_SETTLEMENT
+      - ATTEMPTING_SETTLEMENT
+      - SETTLED
+    
+In the future, an instruction should have authorisation stages (ACTIVE, CANCELLED, CREATOR_PROPOSED_CANCELLATION) and should be preceeded by proposals e.g. SecurityIssuanceProposal requests. Additionally, all requests should abide by the 4-eyes principle, meaning a second party trusted by the initiating party should approve the request.
+
+1. **SecurityIssuanceInstruction**
+  - A contract between an Issuer and IPA facilitated by the CSD to issue an Ethereum bond.
+  - Is of type Instruction
+  - Must be created by the Issuer and confirmed by the IPA.
+  - After confirmation, the CSD will start the settlement phase. The CSD will spend ETH on behalf of the IPA and the Issuer will receive the total amount. A EthereumSecurity contract is deployed with the IPA's address as owner the represent the debt owed by the Issuer.
+  - 
 
 ### Summary
 
