@@ -83,6 +83,7 @@ In the future, an instruction should have authorisation stages (ACTIVE, CANCELLE
    - After confirmation, the CSD settles the instruction. The CSD will spend ETH on behalf of the Issuer and the IPA will receive the total amount. An EthereumSecurity that is fully redeemed will be destroyed to represent the full repayment of debt owed by the Issuer.
 
 (Future work)
+
 3. **Delivery versus Payment**
    - An instruction created by the seller of an EthereumSecurity representing its intent to deliver an EthereumSecurity in return for receiving a payment.
    - A DvP represents the former half of a transaction to trade an EthereumSecurity and will only result in a swap if there is a matching RvP created by the recipient of the security.
