@@ -4,10 +4,10 @@
 
 SecuritiesSettlementEngine represents a Proof of Concept (POC) securities settlement engine built on Ethereum. The project is composed of:
 
-- Definition of an Ethereum-based bond
-- Four types of instructions: SecurityIssuance, and SecurityRedemption
-- Roles involved in the issuance, custodianship, and redemption (CSD, IPA, Issuer) of a security
-- A matching engine and settlement engine with NO built-in 4-eyes principle.
+- Definition of an Ethereum-based bond, EthereumSecurity
+- Two types of instructions: SecurityIssuance, and SecurityRedemption
+- Roles involved in the issuance and redemption (CSD, IPA, Issuer) of a security
+- A settlement engine.
 
 ## Requirements
 
