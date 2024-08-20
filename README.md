@@ -63,15 +63,28 @@ Every Instruction has the following members:
       - FAILED_SETTLEMENT
       - ATTEMPTING_SETTLEMENT
       - SETTLED
+All instruction contracts are created by the CSD on behalf of its clients.
     
 In the future, an instruction should have authorisation stages (ACTIVE, CANCELLED, CREATOR_PROPOSED_CANCELLATION) and should be preceeded by proposals e.g. SecurityIssuanceProposal requests. Additionally, all requests should abide by the 4-eyes principle, meaning a second party trusted by the initiating party should approve the request. Last, an instruction should be able to be cancelled using a cancellation instruction.
 
 1. **SecurityIssuanceInstruction**
    - A contract between an Issuer and IPA facilitated by the CSD to issue an EthereumSecurity.
-   - Is of type Instruction
    - Must be created by the Issuer and confirmed by the IPA.
    - After confirmation, the CSD will start the settlement phase. The CSD will spend ETH on behalf of the IPA and the Issuer will receive the total amount. A EthereumSecurity contract is deployed with the IPA's address as owner the represent the debt owed by the Issuer.
 
+2. **SecurityRedemptionInstruction**
+   - A contract between an Issuer and IPA holding an EthereumSecurity issued by the Issuer to fully (!) redeem the Total Outstanding Issuance amount.
+   - Must be created by the Issuer and confirmed by the IPA.
+   - After confirmation, the CSD settles the instruction. The CSD will spend ETH on behalf of the Issuer and the IPA will receive the total amount. An EthereumSecurity that is fully redeemed will be destroyed to represent the full repayment of debt owed by the Issuer.
+
+(Future work)
+3. **Delivery versus Payment**
+   - An instruction created by the seller of an EthereumSecurity representing its intent to deliver an EthereumSecurity in return for receiving a payment.
+   - A DvP represents the former half of a transaction to trade an EthereumSecurity and will only result in a swap if there is a matching RvP created by the recipient of the security.
+
+4. **Receive versus Payment**
+   - An instruction created by the buyer of an EthereumSecurity representing its intent to receive an EthereumSecurity in return for delivering a payment
+   - A RvP represents the latter half of a transaction to trade an EthereumSecurity and will only result in a swap if there is a matching DvP created by the deliveree of the security.
 
 ### Summary
 
